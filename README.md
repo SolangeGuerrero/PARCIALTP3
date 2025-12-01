@@ -153,5 +153,7 @@ LoginViewModel busca el usuario por email usando UserRepository.getUserByEmail()
 Si el usuario existe, verifica que la contraseña coincida
 Si las credenciales son correctas, el usuario accede a la aplicación
 Si no, se muestra un mensaje de error específico
+
+
 🔐 Seguridad
 Nota Importante: En un entorno de producción, las contraseñas deberían ser hasheadas antes de almacenarse. Esta implementación actual almacena contraseñas en texto plano únicamente con fines educativos. Otro detalle, es que se indica si el usuario no existe al hacer login o si la password es invalida. Entendemos que es un error grave en cuanto a la seguridad, esto lo hicimos asi solo a fines de demostrar que se persiste un usuario y que se va a un local storage a buscar a dicho usuario y evidenciar que se valida la password si existe.
