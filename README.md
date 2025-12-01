@@ -1,54 +1,62 @@
-# Finance App
+# Finance App - Proyecto Final
 
-Una aplicación Android de finanzas personales construida con Jetpack Compose, arquitectura MVVM y Firebase.
-
-##  Configuración y Pruebas con Firebase
-
-Esta aplicación utiliza Firebase para la autenticación de usuarios y el almacenamiento de datos. Funciona en dos modos:
+Esta es una aplicación de finanzas personales para Android, desarrollada con Jetpack Compose, arquitectura MVVM y Firebase como backend.
 
 ---
 
-### 1. Modo Desarrollo (Pruebas Locales con Emuladores)
+Esta sección contiene todo lo necesario para probar la funcionalidad principal de la aplicación conectada a la nube de Firebase.
 
-Este es el modo que usarás para correr el proyecto desde Android Studio. Los datos se guardan localmente en tu computadora y no en la nube.
+### 1. Instalación de la Aplicación (Modo Producción)
 
-**Pasos para ejecutar:**
+El repositorio ya incluye el archivo de instalación final (`.apk`) que se conecta directamente a la nube de Firebase.
 
-1.  **Inicia los emuladores de Firebase**: Abre una terminal en la raíz del proyecto y ejecuta:
+**Pasos para instalar:**
+
+1.  **Localiza el APK**: El archivo se encuentra en la siguiente ruta dentro del proyecto:
+    ```
+    /app/build/outputs/apk/release/app-release.apk
+    ```
+2.  **Inicia un Emulador de Android**: Abre Android Studio y lanza un emulador desde el "Device Manager".
+3.  **Instala el APK**:
+    *   **Método fácil**: Arrastra y suelta el archivo `app-release.apk` directamente sobre la ventana del emulador.
+
+### 2. Prueba de Funcionalidad
+
+1.  **Abre la aplicación** desde el menú del emulador (no desde Android Studio).
+2.  **Usuario de Prueba Automático**: Al iniciar la app por primera vez, un usuario de prueba se creará automáticamente en la nube.
+    - **Email:** `test@email.com`
+    - **Password:** `123456`
+    Puedes iniciar sesión con estas credenciales para probar la app.
+3.  **Registra Nuevos Usuarios**: También puedes usar la opción "Sign Up" para crear tus propios usuarios.
+
+### 3. Verificación de Datos en la Nube de Firebase
+
+Como has sido añadido como **propietario del proyecto de Firebase**, puedes verificar todos los datos en tiempo real.
+
+1.  **Accede a la Consola de Firebase**:
+    - https://console.firebase.google.com/u/0/project/financeapp-a17da/authentication/users
+2.  **Ver Usuarios Registrados**:
+    - En el menú de la izquierda, ve a **Build > Authentication**.
+    - En la pestaña **Users**, verás una lista con todos los usuarios registrados, incluido el de prueba.
+3.  **Ver Datos en la Base de Datos**:
+    - En el menú, ve a **Build > Firestore Database**.
+    - Aquí podrás ver la colección `users` con los documentos correspondientes a cada usuario.
+
+---
+
+## Guía para Desarrollo (Configuración Local)
+
+Esta sección es para desarrolladores que deseen ejecutar el proyecto en un entorno de desarrollo local utilizando los emuladores de Firebase.
+
+1.  **Inicia los Emuladores**:
     ```bash
     firebase emulators:start --only auth,firestore
     ```
-    Esto levantará los servicios de Autenticación y Base de Datos localmente.
+2.  **Ejecuta desde Android Studio**: Presiona el botón "Run" (▶️) para compilar en modo `debug`. La app se conectará automáticamente a los emuladores locales.
+3.  **Verifica los Datos Locales**: Los datos creados en este modo estarán disponibles en la **UI de los Emuladores** (`http://localhost:4000`), no en la consola de la nube.
 
-2.  **Ejecuta la aplicación**: Abre el proyecto en Android Studio y presiona el botón "Run" (▶️) para instalar la app en tu emulador o dispositivo Android.
-
-3.  **Usuario de Prueba Automático**: La primera vez que inicies la app, se creará automáticamente un usuario de prueba:
-    - **Email:** `test@email.com`
-    - **Password:** `123456`
-    Puedes iniciar sesión directamente con estas credenciales.
-
-4.  **Registra nuevos usuarios**: También puedes ir a "Sign Up" para crear más usuarios.
-
-5.  **Verifica los datos**: Para ver todos los usuarios que has creado (incluido el de prueba), abre la siguiente dirección en tu navegador:
-    - **URL:** `http://localhost:4000`
-    Navega a las pestañas **Authentication** y **Firestore** para ver los datos en tiempo real.
-
----
-
-### 2. Modo Producción (Conexión a la Nube de Firebase)
-
-Este modo es para generar una versión final de la app (`.apk`) que se conecta a la nube real de Firebase.
-
-**Pasos para ejecutar:**
-
-1.  **Genera el APK de Release**:
-    - En Android Studio, ve a **Build > Generate Signed Bundle / APK...**.
-    - Selecciona **APK** y sigue los pasos para firmar la aplicación. El proyecto ya incluye un `release.keystore` de prueba.
-    - El archivo se generará en `app/build/outputs/apk/release/app-release.apk`.
-
-2.  **Instala el APK**: Instala el `app-release.apk` en un dispositivo físico o emulador.
-
-3.  **Prueba en la Nube**: Al abrir esta versión, los usuarios que registres (incluido el de prueba automático) se guardarán en la consola de Firebase en la nube, la cual puedes consultar en [console.firebase.google.com](https://console.firebase.google.com).
+💰 Aclaracion
+Para ir a las transactions de la seccion 9.3.2 , ir a Transaction y hacer click en "Total Balance"
 
 📱 Instrucciones de Uso
 Primer Uso
@@ -145,9 +153,5 @@ LoginViewModel busca el usuario por email usando UserRepository.getUserByEmail()
 Si el usuario existe, verifica que la contraseña coincida
 Si las credenciales son correctas, el usuario accede a la aplicación
 Si no, se muestra un mensaje de error específico
-## 🔐 Seguridad
-
-**Nota Importante**: En un entorno de producción real, las contraseñas deberían ser hasheadas antes de almacenarse. Esta implementación actual almacena contraseñas en texto plano únicamente con fines educativos.
-
-Además, por motivos de demostración, el sistema de login indica explícitamente si un usuario no existe o si la contraseña es incorrecta, una práctica que se debe evitar en producción para no dar pistas a posibles atacantes.
-
+🔐 Seguridad
+Nota Importante: En un entorno de producción, las contraseñas deberían ser hasheadas antes de almacenarse. Esta implementación actual almacena contraseñas en texto plano únicamente con fines educativos. Otro detalle, es que se indica si el usuario no existe al hacer login o si la password es invalida. Entendemos que es un error grave en cuanto a la seguridad, esto lo hicimos asi solo a fines de demostrar que se persiste un usuario y que se va a un local storage a buscar a dicho usuario y evidenciar que se valida la password si existe.
